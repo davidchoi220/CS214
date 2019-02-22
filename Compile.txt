@@ -11,7 +11,7 @@ Compiling
 Running
 	./filename
 
-CLOSURE
+CLOJURE
 Compile/Run
 	clojure -m filename
 

@@ -24,7 +24,39 @@
 ;; direct-recursive version
 
 ; replace this line with the definition of displayLogTable().
-(defn displayLogTable)
+(defn displayLogTable [start stop increment]
+	(if (<= start stop)
+		(do
+			(printf "The logarithm of %f is %f\n"
+				start (Math/log10 start)
+			)
+			displayLogTable (+ start increment) stop increment
+		)
+	)
+)
+
+(defn displayLogTable2 [start stop increment]
+	(loop [i start]
+		(when (<= i stop)
+			(printf "The logarithm of %f is %f\n"
+				i (Math/log10 i)
+			)
+		(recur (+ i increment))
+		)
+	)
+)
+
+(defn displayLogTable3 [start stop increment]
+	(if (<= start stop)
+		(do
+			(printf "The logarithm of %f is %f\n"
+				start (Math/log10 start)
+
+			)
+		(recur (+start increment) stop increment)		
+		)
+	)
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; -main is a 'driver' for the displayLogTable() functions.
@@ -44,10 +76,10 @@
     (println)
     (displayLogTable start stop increment) 
     (println)
- ;   (displayLogTable2 start stop increment) 
- ;   (println)
- ;   (displayLogTable3 start stop increment) 
- ;   (println)
+    (displayLogTable2 start stop increment) 
+    (println)
+    (displayLogTable3 start stop increment) 
+    (println)
  )
 )
 
