@@ -1,0 +1,115 @@
+Script started on Thu 07 Feb 2019 02:49:28 PM EST
+wc25@gold01:~/CS214/labs/02$ cat example6.lex
+%{
+#include <stdio.h>
+#include <stdlib.h>           /* atoi() */
+#include <string.h>           /* strcmp() */
+#include "example6.tab.h"
+%}
+%%
+[0-9]+                  yylval = atoi(yytext); return NUMBER;
+heat                    return TOKHEAT;
+on|off                  yylval = !strcmp(yytext,"on"); return STATE;
+set                     return TOKSET;
+temperature             return TOKTEMPERATURE;
+humidity		return TOKHUMIDITY;
+
+\n                      /* ignore end of line */;
+[ \t]+                  /* ignore whitespace */;
+%%wc25@gold01:~/CS214/labs/02$ cat example6.lex   y
+%{
+#include <stdio.h>
+#include <string.h>
+
+/* declarations */
+int yylex (void);
+void yyerror (char const *);
+int yyparse(void);
+
+/* definitions */ 
+void yyerror(const char *str) {
+        fprintf(stderr,"error: %s\n",str);
+}
+ 
+int yywrap() {
+        return 1;
+} 
+ 
+int main() {
+        yyparse();
+} 
+
+%}
+
+%token NUMBER TOKHEAT STATE TOKSET TOKTEMPERATURE TOKHUMIDITY
+%%
+
+commands: /* empty */
+        | commands command
+        ;
+
+command:
+        heat_switch
+        | temperature_set
+	| humidity_set
+        ;
+
+heat_switch:
+        TOKHEAT STATE
+        {
+                if ($2) {  /* if STATE == 1 */
+                        printf("\tHeat turned on\n");
+                } else {
+                        printf("\tHeat turned off\n");
+                }
+        }
+        ;
+
+
+
+temperature_set: 
+        TOKSET TOKTEMPERATURE NUMBER
+        {
+                printf("\tTemperature set to %d\n",$3);
+        }
+        ;
+
+humidity_set: 
+        TOKSET TOKHUMIDITY NUMBER
+        {
+                printf("\tHumidity set to %d\n",$3);
+        }
+        ;
+wc25@gold01:~/CS214/labs/02$ make
+make: 'example6' is up to date.
+wc25@gold01:~/CS214/labs/02$ ./example6
+heat on
+	Heat turned on
+heat off
+	Heat turned off
+set temperature 22
+	Temperature set to 22
+seth  humidity 2 50
+	Humidity set to 50
+^C
+wc25@gold01:~/CS214/labs/02$ cat observations.txt
+cat: observations.txt: No such file or directory
+wc25@gold01:~/CS214/labs/02$ cat observations.txt[1P
+Example 1
+
+	From lines 740 to 770, lists each cases, where if input is start or stop, it prints "Start/Stop command received". For other inputs, instead of printing any lines, it echoes. 
+
+Example 2
+
+	When the input was a number or a letter, it printed either NUMBER or WORD. However, the when the input was any other special characters, it just echoed back, similar to example1. If input contained both letter/number and a special character, such as an underscore, the special character printed itself as an output, in between the number or the letter the program read.
+
+Example 3
+
+	Running the line ./example2 < StudentInfo.h identified 	keyword, identifiers, punctuation, operators and double. 
+
+Example 4
+	Terminals are written in all CAPS and has the ability to refer to other terminals as well as the non-terminals. However, non-terminals don't have the ability to do so.
+
+	When orders are given to turn the heat on or off, the print line is different. When I input heat on, rather than printing "Heat turned on!" it printed "Heat turned on or off". wc25@gold01:~/CS214/labs/02$ exit
+
+Script done on Thu 07 Feb 2019 02:50:28 PM EST

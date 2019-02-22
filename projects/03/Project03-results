@@ -1,0 +1,265 @@
+Script started on Mon 18 Feb 2019 10:32:51 PM EST
+wc25@gold22:~/CS214/projects/03$ cat grades.java
+/* grades.java is a driver for function grade().
+ *
+ * Begun by: David Choi, for CS 214 at Calvin College.
+ ****************************************************************/
+
+import java.util.Scanner;
+
+public class grades{
+
+   public static void main(String[] args) {
+      Scanner keyboard = new Scanner(System.in);
+      System.out.println("\nEnter your grade: "); // prompt
+
+      int grade = keyboard.nextInt();       // read grade
+      System.out.println(letterGrade(grade)); // display letter grade
+   }
+
+   /***************************************************************
+    * letterGrade() converts an average grades into letter grades.
+    *
+    * Receive: grade, an  int.
+    * PRE: grade is one of {10, 9, 8, 7, 5, 4, 3, 2, 1}.
+    * Return: the letter grade corresponding to average grade.
+    */
+   public static char letterGrade(int average)
+   {
+   	switch (average / 10){
+   		case 10: case 9:
+   		return 'A';
+
+   		case 8:
+   		return 'B';
+
+   		case 7:
+   		return 'C';
+
+   		case 6:
+   		return 'D';
+
+   		default:
+   		return 'F';
+
+	}
+}
+}
+wc25@gold22:~/CS214/projects/03$ javac -deprecation grades.java
+wc25@gold22:~/CS214/projects/03$ java grades
+
+Enter your grade: 
+95
+A
+wc25@gold22:~/CS214/projects/03$ java grades
+
+Enter your grade: 
+85
+B
+wc25@gold22:~/CS214/projects/03$ java grades
+
+Enter your grade: 
+75
+C
+wc25@gold22:~/CS214/projects/03$ java grades
+
+Enter your grade: 
+65
+D
+wc25@gold22:~/CS214/projects/03$ java grades
+
+Enter your grade: 
+55
+F
+wc25@gold22:~/CS214/projects/03$ exit
+
+Script done on Mon 18 Feb 2019 10:34:05 PM EST
+Script started on Mon 18 Feb 2019 10:34:29 PM EST
+wc25@gold22:~/CS214/projects/03$ cat grades.advb  b
+-- grades.adb converts grade codes to corresponding letter grades.
+--
+-- Begun by: David Choi, for CS 214 at Calvin College.
+--
+-- Input: grade, an int
+-- Precondition: grade is an integer from 0 to 100
+-- Output: The letter grade (A, B, C, D, or F) corresponding to the letter grade.
+----------------------------------------------------
+
+with Ada.Text_IO, Ada.Integer_Text_IO;
+use  Ada.Text_IO, Ada.Integer_Text_IO;
+
+procedure grades is
+
+   grade : Integer;
+
+  
+function letterGrade (grade: Integer) return character is
+
+begin
+	case grade/10 is
+	when 10 => return 'A';
+	when 9 => return 'A';
+	when 8 => return 'B';
+	when 7 => return 'C';
+	when 6 => return 'D';
+	when others => return 'F';
+	end case;
+
+end letterGrade;
+
+begin                                          
+   Put("Enter your grade: ");           -- Prompt for input
+   Get(grade);                   -- Input
+   Put(letterGrade(grade));                       -- Convert and output
+   New_Line;
+end grades;
+
+wc25@gold22:~/CS214/projects/03$ gnatmake grades
+gnatmake: "grades" up to date.
+wc25@gold22:~/CS214/projects/03$ ./grades
+Enter your grade: 95
+A
+wc25@gold22:~/CS214/projects/03$ ./grades
+Enter your grade: 85
+B
+wc25@gold22:~/CS214/projects/03$ ./grades
+Enter your grade: 75
+C
+wc25@gold22:~/CS214/projects/03$ ./grades
+Enter your grade: 65
+D
+wc25@gold22:~/CS214/projects/03$ ./grades
+Enter your grade: 55
+F
+wc25@gold22:~/CS214/projects/03$ exit
+
+Script done on Mon 18 Feb 2019 10:34:57 PM EST
+Script started on Mon 18 Feb 2019 10:36:56 PM EST
+wc25@gold22:~/CS214/projects/03$ cd clojure
+wc25@gold22:~/CS214/projects/03/clojure$ cd src
+wc25@gold22:~/CS214/projects/03/clojure/src$ cat grades.clj
+;;;; grades.clj is a driver for function letterGrade.
+;;;;
+;;;; Input: A grade, a number between 0 to 100.
+;;;; Output: The letter for that grade
+;;;;  
+;;;; Usage: clojure -m grades
+;;;;
+;;;; Begun by: David Choi, for CS 214 at Calvin College.
+;;;; Completed by: David Choi
+;;;; Date:02-18-2019
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns grades)                    ; name the program
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; grades() returns the letter grade for a given grade.
+;;; Receive: grade, an Integer.
+;;; Precondition: grade is a number between 
+;;;   {0 to 100}.
+;;; Return: the char corresponding to the grade.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn letterGrade[grade]
+	(cond
+		(>= grade 90) "A"
+		(>= grade 80) "B"
+		(>= grade 70) "C"
+		(>= grade 60) "D"
+		:else "F"
+		))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function -main() test-drives our letterGrade() function.
+;;; Input: grade: one between {0-100}.
+;;; Output: the letter grade corresponding to the grade.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn -main []
+ (print "\nEnter your grade: ") (flush)
+ (let
+    [ grade (read) ]                ; read grade (an int)
+    (println (letterGrade grade) "\n")      ; display its code
+ )
+)
+
+wc25@gold22:~/CS214/projects/03/clojure/src$ cd ..
+wc25@gold22:~/CS214/projects/03/clojure$ clojure -m grades
+
+Enter your grade: 99
+A 
+
+wc25@gold22:~/CS214/projects/03/clojure$ clojure -m grades
+
+Enter your grade: 88
+B 
+
+wc25@gold22:~/CS214/projects/03/clojure$ clojure -m grades
+
+Enter your grade: 77
+C 
+
+wc25@gold22:~/CS214/projects/03/clojure$ clojure -m grades
+
+Enter your grade: 66
+D 
+
+wc25@gold22:~/CS214/projects/03/clojure$ clojure -m grades
+
+Enter your grade: 55
+F 
+
+wc25@gold22:~/CS214/projects/03/clojure$ exit
+
+Script done on Mon 18 Feb 2019 10:37:47 PM EST
+Script started on Mon 18 Feb 2019 10:35:47 PM EST
+wc25@gold22:~/CS214/projects/03$ cat grades.rb
+#! /usr/bin/ruby
+# grades.rb translates a grade year into a letter grade
+# Begun by: David Choi, for CS 214 at Calvin College 
+################################################################
+
+# Input:  A grade, from 0 to a 100
+# Precondition: The agrade is an integer with a value of between 0 to 100
+# Output: The corresponding letter grade for the given number grade
+
+def letterGrade grade
+
+	case grade
+	when 90..100
+		"A"
+	when 80..89
+		"B"
+	when 70..79
+		"C"
+	when 60..69
+		"D"
+	when 0..59
+		"F"
+	end
+	
+end
+
+
+if __FILE__ == $0
+   print "Enter the grade: "
+   grade = gets.chomp.to_f #conversion of float input
+   print "Letter grade is: "
+   puts letterGrade(grade)
+end
+
+wc25@gold22:~/CS214/projects/03$ ruby grades.rb
+Enter the grade: 99
+Letter grade is: A
+wc25@gold22:~/CS214/projects/03$ ruby grades.rb
+Enter the grade: 88
+Letter grade is: B
+wc25@gold22:~/CS214/projects/03$ ruby grades.rb
+Enter the grade: 77
+Letter grade is: C
+wc25@gold22:~/CS214/projects/03$ ruby grades.rb
+Enter the grade: 66
+Letter grade is: D
+wc25@gold22:~/CS214/projects/03$ ruby grades.rb
+Enter the grade: 55
+Letter grade is: F
+wc25@gold22:~/CS214/projects/03$ exit
+
+Script done on Mon 18 Feb 2019 10:36:19 PM EST

@@ -1,0 +1,16 @@
+Example 1
+
+	From lines 740 to 770, lists each cases, where if input is start or stop, it prints "Start/Stop command received". For other inputs, instead of printing any lines, it echoes. 
+
+Example 2
+
+	When the input was a number or a letter, it printed either NUMBER or WORD. However, the when the input was any other special characters, it just echoed back, similar to example1. If input contained both letter/number and a special character, such as an underscore, the special character printed itself as an output, in between the number or the letter the program read.
+
+Example 3
+
+	Running the line ./example2 < StudentInfo.h identified 	keyword, identifiers, punctuation, operators and double. 
+
+Example 4
+	Terminals are written in all CAPS and has the ability to refer to other terminals as well as the non-terminals. However, non-terminals don't have the ability to do so.
+
+	When orders are given to turn the heat on or off, the print line is different. When I input heat on, rather than printing "Heat turned on!" it printed "Heat turned on or off". 
