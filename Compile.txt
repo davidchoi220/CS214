@@ -1,0 +1,33 @@
+JAVA
+Compiling 
+	javac -deprecation SourceFileName.java
+Running 
+	java SourceFileName
+
+
+ADA
+Compiling
+	gnatmake filename
+Running
+	./filename
+
+CLOSURE
+Compile/Run
+	clojure -m filename
+
+RUBY
+Compile/Run
+	ruby filename.rb
+
+
+
+SCRIPT
+1. Enter script script.java to start the script program.
+2. Enter cat CircleArea.java to display your source program.
+3. Enter javac -deprecation CircleArea.java to compile your program and show there are no errors.
+4. Enter java CircleArea to run your program (entering the values given above).
+5. Enter exit or type Cntl-d (hold down Cntrl key and press d) to terminate the script program.
+
+   cat script.java script.ada script.clj script.rb > Project03-results
+
+   a2ps Project03-results
