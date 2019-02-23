@@ -6,8 +6,8 @@
 ;;;;          with interval of increment.
 ;;;;
 ;;;; Begun by: Prof. Adams, for CS 214 at Calvin College.
-;;;; Completed by:
-;;;; Date:
+;;;; Completed by: David Choi
+;;;; Date: 2-22-2019
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (ns logTable)                                 ; name the program
@@ -29,8 +29,9 @@
 		(do
 			(printf "The logarithm of %f is %f\n"
 				start (Math/log10 start)
+				displayLogTable (+ start increment) stop increment
 			)
-			displayLogTable (+ start increment) stop increment
+			
 		)
 	)
 )
@@ -53,7 +54,7 @@
 				start (Math/log10 start)
 
 			)
-		(recur (+start increment) stop increment)		
+		(recur (+ start increment) stop increment)		
 		)
 	)
 )

@@ -2,7 +2,7 @@
 # logTable.rb displays a table of logarithms
 #
 # Begun by: Prof. Adams, for CS 214 at Calvin College.
-# Completed by:
+# Completed by: David Choi
 #
 # Input:  The start, stop and increment values
 # Precondition: The start value is less than the stop value, 

@@ -6,7 +6,7 @@
 --         ending with log(stop), with intervals of increment.
 --
 -- Begun by: Prof. Adams, for CS 214 at Calvin College.
--- Completed by:
+-- Completed by: David Choi
 --------------------------------------------------------------
 
 with Ada.Text_IO, Ada.Float_Text_IO, Ada.Numerics.Elementary_Functions;
