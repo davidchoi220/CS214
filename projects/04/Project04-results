@@ -1,0 +1,160 @@
+Script started on Tue 26 Feb 2019 05:20:50 PM EST
+wc25@gold33:~/CS214/projects/04$ cat Factorial.java
+/* Factorial.java displays factorial of n.
+ *
+ * Input: An integer.
+ * 
+ * Output: A factorial value of N
+ * 
+ * Completed by: David Choi
+ ********************************************************/
+import java.util.Scanner; 		// Get input
+
+class Factorial{
+
+  public static void main(String[] args){
+
+    Scanner keyboard = new Scanner(System.in);
+    System.out.println("To calculate n!, enter n: ");
+   
+    double n = keyboard.nextDouble(); //input
+    double b = 1; //answer
+    
+    for(int i = 2; i <= n ; i++)
+    	b *= i;
+    System.out.println("Factorial of " + n + " is " + b);
+  }
+}
+
+wc25@gold33:~/CS214/projects/04$ javac -deprecation Factorial.java
+wc25@gold33:~/CS214/projects/04$ java Fc actorial
+To calculate n!, enter n: 
+5
+Factorial of 5.0 is 120.0
+wc25@gold33:~/CS214/projects/04$ exit
+
+Script done on Tue 26 Feb 2019 05:21:22 PM EST
+Script started on Tue 26 Feb 2019 05:21:48 PM EST
+wc25@gold33:~/CS214/projects/04$ cat factorial.adb
+-- Factorial.adb computes factoorial of n.
+--
+-- Input: An integer.
+-- Output: A factorial value of N
+--
+-- Completed by: David Choi
+--------------------------------------------------------------
+
+with Ada.Text_IO, Ada.Integer_Text_IO;
+use  Ada.Text_IO, Ada.Integer_Text_IO;
+
+procedure factorial is
+
+   n, i, answer : Integer;
+   
+begin                                           -- Prompt for input
+   Put_Line("To calculate n!, enter n: ");
+   Get(n);
+   answer := 1;
+   i := 0;
+
+   for i in 2..n
+   loop
+   	answer := answer * i;
+   end loop;
+
+   Put("Factorial of ");
+   Put(n);
+   Put(" is ");
+   Put(answer);
+
+end factorial;wc25@gold33:~/CS214/projects/04$ gnatmake factorial
+gnatmake: "factorial" up to date.
+wc25@gold33:~/CS214/projects/04$ ./factorial
+To calculate n!, enter n: 
+6
+Factorial of           6 is         720
+wc25@gold33:~/CS214/projects/04$ exit
+
+Script done on Tue 26 Feb 2019 05:22:28 PM EST
+Script started on Tue 26 Feb 2019 05:22:48 PM EST
+wc25@gold33:~/CS214/projects/04$ cd clojure
+wc25@gold33:~/CS214/projects/04/clojure$ cd ..    scr  r cr  rc
+wc25@gold33:~/CS214/projects/04/clojure/src$ cat factorial.clj
+;;;; Factorial.clj displays factorial value of n.
+;;;;
+;;;; Input:  n; an user input value.
+;;;; Precondition: n >= 1.
+;;;; Output: n!
+;;;;
+;;;; Completed by: David Choi
+;;;; Date: 2-25-2019
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns factorial)                                 ; name the program
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; displayFactorial() factorial of its paramter n.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn displayFactorial [n]
+	(if (< n 2)
+		1
+		(* n (displayFactorial (- n 1))) 
+	)
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; -main is a 'driver' for the displayFactorial() functions.
+;;; Input: n
+;;; Output: n!
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn -main []
+	(print "\nTo calculate n!, enter n: ") (flush)
+	(let 
+		[ n (int (read)) ]
+		(print "Factorial of " n " is " (displayFactorial n))
+		(println)
+	)
+)
+wc25@gold33:~/CS214/projects/04/clojure/src$ cd ..
+wc25@gold33:~/CS214/projects/04/clojure$ clojure -m factorial
+
+To calculate n!, enter n: 4
+Factorial of  4  is  24
+wc25@gold33:~/CS214/projects/04/clojure$ exit
+
+Script done on Tue 26 Feb 2019 05:23:27 PM EST
+Script started on Tue 26 Feb 2019 05:23:36 PM EST
+wc25@gold33:~/CS214/projects/04$ ruby factorial              cat factorial.rb
+#! /usr/bin/ruby
+# factorial.rb displays factorial of n
+#
+# Completed by: David Choi
+#
+# Input:  n, an integer
+# Precondition: n >= 1
+# Output: n!
+
+
+if __FILE__ == $0
+   print "To calculate n!, enter n: "
+   n = gets.chomp.to_f
+   answer = 1
+   
+   for i in 2..n
+    answer = answer * i   
+   end
+
+   puts "The factorial of #{ n } is #{ answer }"
+   puts "\n"
+end
+
+wc25@gold33:~/CS214/projects/04$ ruby factorial.rb
+To calculate n!, enter n: 5
+The factorial of 5.0 is 120
+
+wc25@gold33:~/CS214/projects/04$ exit
+
+Script done on Tue 26 Feb 2019 05:24:01 PM EST
