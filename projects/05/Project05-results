@@ -1,0 +1,299 @@
+Script started on Tue 05 Mar 2019 11:21:31 PM EST
+wc25@gold30:~/CS214/projects/05$ cat quad.java
+/* quad.java computes the quadratic of a b and c 
+ * Completed by: David Choi
+ ***************************************************************/
+
+import java.util.Scanner;
+
+// java class Split
+public class quad
+{
+  // main program
+  public static void main(String[] args)
+    {
+      Scanner keyboard = new Scanner(System.in);
+      double a, b, c;
+      System.out.println("\nPlease enter the value of A: ");
+      a = keyboard.nextDouble();
+
+      System.out.println("\nPlease enter the value of B: ");
+      b = keyboard.nextDouble();
+
+      System.out.println("\nPlease enter the value of C: ");
+      c = keyboard.nextDouble();
+
+    
+      double[] results = quadRoots(a, b, c);
+      System.out.println("The quadratic equation of these values are " + results[0] + " " + results[1] + "\n");
+    }
+
+  public static double[] quadRoots(double a, double b, double c){
+  	double[] roots = new double[2];
+  	if( a != 0){
+  		double arg = Math.pow(b, 2.0) - 4 * a * c;
+  		if ( arg >= 0){
+  			roots[0] = (-b + Math.sqrt(arg))/(2*a);
+  			roots[1] = (-b - Math.sqrt(arg))/(2*a);
+  			return roots;
+		}else{
+			System.out.println("Error: quadRoots(): b^2 - 4ac is negative!");
+			roots[0] = roots[1] = 0.0;
+			return roots;
+			}
+		}else{
+			System.out.println("Error: quadRoots():: a is zero!");
+			roots[0] = roots[1] = 0.0;
+			return roots;
+		}
+	}
+}
+
+wc25@gold30:~/CS214/projects/05$ javac-  -deprecation quad.java
+wc25@gold30:~/CS214/projects/05$ java quad
+
+Please enter the value of A: 
+5
+
+Please enter the value of B: 
+5
+
+Please enter the value of C: 
+5
+Error: quadRoots(): b^2 - 4ac is negative!
+
+wc25@gold30:~/CS214/projects/05$ java quad
+
+Please enter the value of A: 
+5
+
+Please enter the value of B: 
+6
+
+Please enter the value of C: 
+1
+The quadratic equation of these values are -0.2 -1.0
+
+wc25@gold30:~/CS214/projects/05$ exit
+
+Script done on Tue 05 Mar 2019 11:22:12 PM EST
+Script started on Tue 05 Mar 2019 11:22:18 PM EST
+wc25@gold30:~/CS214/projects/05$ gnatmake        cat quad.abd  db
+-- quad.adb computes the quadratic values of user inputted 
+-- a, b, and c
+-- Input: value a, b, and c
+-- 
+-- Output: The quadratic value of a, b, and c
+--
+-- Begun by: Dr. Adams, for CS 214 at Calvin College.
+-- Completed by: David Choi
+-- Date: 3-4-2019
+--------------------------------------------------------------
+
+with Ada.Text_IO, Ada.Float_Text_IO, Ada.Integer_Text_IO, Ada.Numerics.Elementary_Functions;
+use Ada.Text_IO, Ada.Float_Text_IO, Ada.Integer_Text_IO, Ada.Numerics.Elementary_Functions;
+
+procedure quad is
+
+a, b, c : Float;
+r1, r2 : Float;
+arg : Float;
+quadratic : Boolean;
+
+
+   procedure quadRoots (a, b, c: in Float; r1, r2: out Float; quadratic: out Boolean) is
+ -- arg : Float := b**2 - 4.0*a*c;
+
+   begin
+   if a /= 0.0 then
+   arg := ((abs b)**2) - 4.0 * a * c;
+    if arg >= 0.0 then
+      r1 := (-b + Sqrt(arg)) / (2.0*a);
+      r2 := (-b - Sqrt(arg)) / (2.0*a);
+      quadratic := true;
+ 	else
+ 		Put_Line("Error: quadRoots(): b^2 - 4ac is negative!");
+ 		r1 := 0.0;
+ 		r2 := 0.0;
+ 		quadratic := false;
+ 	end if; 
+
+ 	else
+ 	Put_Line ("Error: quadRoots():: a is zero!");
+ 	r1 := 0.0;
+ 	r2 := 0.0;
+ 	quadratic := false;
+ 	end if;
+   end quadRoots;
+
+
+begin                                           -- Prompt for input
+	Put("Please enter the value of a: ");
+	Get(a);
+	Put("Please enter the value of b: ");
+	Get(b);
+	Put("Please enter the value of c: ");
+	Get(c);
+
+	quadRoots(a, b, c, r1, r2, quadratic);
+	
+	if quadratic = true then
+
+		Put("The fist root is : ");
+		Put(r1);
+		Put(" and the second root is: ");
+		Put(r2);
+		end if;
+end quad;
+
+wc25@gold30:~/CS214/projects/05$ gnatmake quad
+gcc-5 -c quad.adb
+gnatbind-5 -x quad.ali
+gnatlink-5 quad.ali
+wc25@gold30:~/CS214/projects/05$ ./quad
+Please enter the value of a: 5
+Please enter the value of b: 5
+Please enter the value of c: 5
+Error: quadRoots(): b^2 - 4ac is negative!
+wc25@gold30:~/CS214/projects/05$ ./quad
+Please enter the value of a: 5
+Please enter the value of b: 6
+Please enter the value of c: 1
+The fist root is : -2.00000E-01 and the second root is: -1.00000E+00
+wc25@gold30:~/CS214/projects/05$ exit
+
+Script done on Tue 05 Mar 2019 11:22:50 PM EST
+Script started on Tue 05 Mar 2019 11:24:18 PM EST
+wc25@gold30:~/CS214/projects/05$ cd slo   clojure
+wc25@gold30:~/CS214/projects/05/clojure$ cd src
+wc25@gold30:~/CS214/projects/05/clojure/src$ cat quad.clj
+;;;; quad.clj calculates the quadrativ value of an equation
+;;;;
+;;;; Input: value a, b, c
+;;;; Output: the quadratic value
+;;;;
+;;;; Completed by: David Choi
+;;;; Date: 3-4-2014
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns quad)      ; name the program
+
+(defn quadratic [a b c]
+  (if (not (= a 0.0))
+    (let [ arg (- (Math/pow b 2.0) (* 4.0 (* a c)))]
+      (if (>= arg 0.0)
+        (vector (/ (+ (- b) (Math/sqrt arg)) (* 2.0 a)) (/ (- (- b) (Math/sqrt arg)) (* 2.0 a)) true)
+        (vector 0.0 0.0 false 1)
+        )
+      )
+  (vector 0.0 0.0 false 2))
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; main function
+;;; Input: a, b, c
+;;; Output: quadratic roots of given values
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn -main []
+  (println "Please enter a, b, c: ") (flush)
+  (let
+    [
+      a (Double/parseDouble (read-line))
+      b (Double/parseDouble (read-line))
+      c (Double/parseDouble (read-line))
+
+      result (quadratic a b c)
+      r1 (get result 0)
+      r2 (get result 1)
+      flag (get result 2)
+      error (get result 3)
+    ]
+    (if flag
+      (println "The roots are: " (str r1) (str r2))
+      (if (= error 1) (print "\nError: quadRoots(): b^2 - 4ac is negative!\n")
+        (print "\nError: quadRoots():: a is zero!\n")
+      )
+    )
+  )
+)
+
+wc25@gold30:~/CS214/projects/05/clojure/src$ cd ..
+wc25@gold30:~/CS214/projects/05/clojure$ clojure -m quad
+Please enter a, b, c: 
+5
+5
+5
+
+Error: quadRoots(): b^2 - 4ac is negative!
+wc25@gold30:~/CS214/projects/05/clojure$ clojure -m quad
+Please enter a, b, c: 
+5
+6
+1
+The roots are:  -0.2 -1.0
+wc25@gold30:~/CS214/projects/05/clojure$ exit
+
+Script done on Tue 05 Mar 2019 11:24:56 PM EST
+Script started on Tue 05 Mar 2019 11:25:04 PM EST
+wc25@gold30:~/CS214/projects/05$ cat quad.rb
+# quad.rb computes the quadratic roots of a, b, and c
+#
+# Input: double a, b, c
+# Output: quadratic roots
+#
+# Begun by: Prof. Adams, for CS 214 at Calvin College.
+# Completed by: David Choi
+# Date: 3-4-2019
+#################################################################
+
+
+def quad(a, b, c)
+	if a != 0
+		arg = (b**2) - (4 * a * c)
+		if arg > -1
+			[(-b + Math.sqrt(arg))/(2*a), (-b -Math.sqrt(arg))/(2*a), true, 0]
+		else 
+			[0, 0, false, 1]
+		end
+	else 
+		[0, 0, false, 2]
+	end
+end
+
+
+if __FILE__ == $0
+  print "Enter the value for a: "
+  a = gets.to_f
+  print "Enter the value for b: "
+  b = gets.to_f
+  print "Enter the value for c: "
+  c = gets.to_f
+  
+  roots = quad(a, b, c)
+
+
+  if(roots[2])
+  	puts "The roots are " << roots[0].to_s << " and " << roots[1].to_s
+  else
+  	if (roots[3] == 1)
+  		puts "Error: quadRoots(): b^2 - 4ac is negative! \n"
+  	else
+  		puts "Error: quadRoots():: a is zero! \n"
+  	end
+
+end
+end
+wc25@gold30:~/CS214/projects/05$ ruby quad.rb
+Enter the value for a: 5
+Enter the value for b: 5
+Enter the value for c: 5
+Error: quadRoots(): b^2 - 4ac is negative! 
+wc25@gold30:~/CS214/projects/05$ ruby quad.rb
+Enter the value for a: 5
+Enter the value for b: 6
+Enter the value for c: 1
+The roots are -0.2 and -1.0
+wc25@gold30:~/CS214/projects/05$ exit
+
+Script done on Tue 05 Mar 2019 11:25:22 PM EST
